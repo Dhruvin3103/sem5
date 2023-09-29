@@ -1,16 +1,13 @@
 graph = {
-    'S': ['A', 'B', 'D'],
-    'A': ['S', 'E'],
-    'B': ['S', 'E'],
-    'D': ['S', 'G'],
-    'E': ['A', 'F', 'B'],
-    'F': ['E','G'],
-    'G': ['D','F']
+  'A': ['B', 'C'],
+  'B': ['A', 'D'],
+  'C': ['A', 'D', 'E'],
+  'D': ['F', 'C', 'B'],
+  'E': ['C', 'F', 'G'],
+  'F': ['D', 'E', 'H'],
+  'G': ['E', 'H'],
+  'H': ['F', 'G']
 }
-
-visited = []
-stack = []
-path = []
 
 def dfs(graph, current_node, goal_node, visited, path):
     if current_node not in visited:
@@ -26,6 +23,13 @@ def dfs(graph, current_node, goal_node, visited, path):
         for i in graph[current_node]:
             dfs(graph, i, goal_node, visited, path)
 
-print("Depth-First Search")
+print("\n")
+print(f"Nodes in Graph : {[i for i in graph.keys()]}")
+start_node = input("Enter start node : ")
+goal_node = input("Enter goal node : ")
+visited = []
+path = []
+print("<------------------------------Depth-First Search------------------------------>")
 print("Visited\t\tNot Visted\t\tGoal state")
-dfs(graph, 'S', 'D',visited,path)
+print("<------------------------------------------------------------------------------>")
+dfs(graph, start_node, goal_node,visited,path)

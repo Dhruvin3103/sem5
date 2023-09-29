@@ -1,18 +1,15 @@
 graph = {
-    'S': ['A', 'B', 'D'],
-    'A': ['S', 'E'],
-    'B': ['S', 'E'],
-    'D': ['S', 'G'],
-    'E': ['A', 'F', 'B'],
-    'F': ['E','G'],
-    'G': ['D','F']
+  'A': ['B', 'C'],
+  'B': ['A', 'D'],
+  'C': ['A', 'D', 'E'],
+  'D': ['B', 'C', 'F'],
+  'E': ['C', 'F', 'G'],
+  'F': ['D', 'E', 'H'],
+  'G': ['E', 'H'],
+  'H': ['F', 'G']
 }
 
-visited = []
-queue = []
-path = []
-
-def bfs(graph, current_node, goal_node, visited, path):
+def bfs(graph, current_node, goal_node, visited, path, queue):
     visited.append(current_node)
     queue.append(current_node)
     not_visited = [i for i in graph.keys() if i not in visited]
@@ -34,7 +31,14 @@ def bfs(graph, current_node, goal_node, visited, path):
                 not_visited = [i for i in graph.keys() if i not in visited]
                 print(f"{visited}\t\t{not_visited}\t\tFalse")
             
-        
-print("Breadth-First Search")
+print("\n")
+print(f"Nodes in Graph : {[i for i in graph.keys()]}")
+start_node = input("Enter start node : ")
+goal_node = input("Enter goal node : ")
+visited = []
+queue = []
+path = []
+print("<------------------------------Breadth-First Search------------------------------>")
 print("Visited\t\tNot Visted\t\tGoal state")
-bfs(graph, 'S', 'D',visited,path)
+print("<------------------------------------------------------------------------------>")
+bfs(graph, start_node, goal_node,visited,path,queue)
