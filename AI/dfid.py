@@ -26,7 +26,7 @@ def dfs(graph, current_node, goal_node, visited, path, curr_depth, depth):
             not_visited = [i for i in graph.keys() if i not in visited]
             if current_node == goal_node:
                 print(f"{visited}\t\t{not_visited}\t\tTrue")
-                print(f"path : {path}")
+                # print(f"path : {path}")
                 return path,True
             
             print(f"{visited}\t\t{not_visited}\t\tFalse")
@@ -40,5 +40,12 @@ def dfs(graph, current_node, goal_node, visited, path, curr_depth, depth):
         return path,False
 
 path1, status =  dfid(graph,'A','G',[],[],3)
+
+
 # path2, status = dfs(graph,'A','G',[],[],0,3)
 # print(path1)
+
+if status:
+    print(f"Found \npath = {path1}")
+else:
+    print("not found")
