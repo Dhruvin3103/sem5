@@ -1,24 +1,100 @@
+# graph = {
+#     'A': {'B': 9, 'C': 5, 'D': 18},
+#     'C': {'E': 17, 'F': 12},
+#     'B': {'E': 11},
+#     'D': {'F': 14},
+#     'E': {'Z': 5},
+#     'F': {'Z': 9},
+#     'Z': {}
+# }
+
+# graph_heu = {
+#     'A':21,
+#     'C':18,
+#     'B':15,
+#     'D':18,
+#     'E':5,
+#     'F':8,
+#     'Z':0,
+# }
+
+# Define the graph
+# graph = {
+#     'A': {'B': 4, 'C': 7, 'D': 10},
+#     'B': {'E': 5, 'F': 3},
+#     'C': {'E': 6, 'G': 8},
+#     'D': {'F': 5, 'H': 9},
+#     'E': {'I': 4, 'J': 2},
+#     'F': {'I': 3, 'K': 7},
+#     'G': {'L': 6},
+#     'H': {'L': 5},
+#     'I': {'Z': 4},
+#     'J': {'Z': 3},
+#     'K': {'Z': 6},
+#     'L': {'Z': 5},
+#     'Z': {}
+# }
+
+# # Define the heuristic values for A* search
+# graph_heu = {
+#     'A': 10,
+#     'B': 8,
+#     'C': 10,
+#     'D': 8,
+#     'E': 6,
+#     'F': 7,
+#     'G': 4,
+#     'H': 6,
+#     'I': 4,
+#     'J': 3,
+#     'K': 2,
+#     'L': 1,
+#     'Z': 0
+# }
+
+# Define the graph
 graph = {
-    'A': {'B': 9, 'C': 5, 'D': 18},
-    'C': {'E': 17, 'F': 12},
-    'B': {'E': 11},
-    'D': {'F': 14},
-    'E': {'Z': 5},
-    'F': {'Z': 9},
-    'Z': {}
+    'Start': {'A': 5, 'B': 8, 'C': 12},
+    'A': {'D': 6, 'E': 9},
+    'B': {'F': 10},
+    'C': {'G': 11},
+    'D': {'H': 8, 'I': 15},
+    'E': {'J': 7},
+    'F': {'K': 12},
+    'G': {'L': 9},
+    'H': {'M': 10},
+    'I': {'N': 5},
+    'J': {'N': 8},
+    'K': {'N': 6},
+    'L': {'N': 10},
+    'M': {'N': 7},
+    'N': {'End': 0},
+    'End': {}
 }
 
+# Define the heuristic values for A* search
 graph_heu = {
-    'A':21,
-    'C':18,
-    'B':15,
-    'D':18,
-    'E':5,
-    'F':8,
-    'Z':0,
+    'Start': 20,
+    'A': 16,
+    'B': 18,
+    'C': 15,
+    'D': 12,
+    'E': 10,
+    'F': 8,
+    'G': 6,
+    'H': 6,
+    'I': 5,
+    'J': 4,
+    'K': 3,
+    'L': 2,
+    'M': 1,
+    'N': 0,
+    'End': 0
 }
-curr_node = 'A' # this is also start node at the beginning
-goal_node = 'Z'
+
+
+curr_node = input("Enter Start Node : ") # this is also start node at the beginning
+goal_node = input("Enter Goal Node : ")
 
 def searchlist(l,k):
     for i in l:
