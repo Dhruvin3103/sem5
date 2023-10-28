@@ -7,13 +7,11 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor = mydb.cursor()
 print("Eariler Records : ")
 mycursor.execute("SELECT * FROM Laptop")
 res = mycursor.fetchall()
 for x in res:
     print(x)
-
 
 mycursor.execute("UPDATE Laptop SET Price = 65000 WHERE Id = 16")
 mydb.commit()

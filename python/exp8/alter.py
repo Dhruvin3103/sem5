@@ -7,7 +7,9 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("SELECT * FROM Laptop WHERE Rating > 3")
+mycursor.execute("ALTER TABLE Laptop ADD Rating int(10)")
+mydb.commit()
+mycursor.execute("SELECT * FROM Laptop")
 res = mycursor.fetchall()
 for x in res:
     print(x)
