@@ -54,7 +54,7 @@
 
 # Define the graph
 graph = {
-    'Start': {'A': 5, 'B': 8, 'C': 12},
+    'S': {'A': 5, 'B': 8, 'C': 12},
     'A': {'D': 6, 'E': 9},
     'B': {'F': 10},
     'C': {'G': 11},
@@ -68,13 +68,13 @@ graph = {
     'K': {'N': 6},
     'L': {'N': 10},
     'M': {'N': 7},
-    'N': {'End': 0},
-    'End': {}
+    'N': {'Z': 0},
+    'Z': {}
 }
 
 # Define the heuristic values for A* search
 graph_heu = {
-    'Start': 20,
+    'S': 20,
     'A': 16,
     'B': 18,
     'C': 15,
@@ -89,7 +89,7 @@ graph_heu = {
     'L': 2,
     'M': 1,
     'N': 0,
-    'End': 0
+    'Z': 0
 }
 
 

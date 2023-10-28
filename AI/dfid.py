@@ -42,9 +42,6 @@ def dfs(graph, current_node, goal_node, visited, path, curr_depth, depth):
 path1, status =  dfid(graph,'A','G',[],[],3)
 
 
-# path2, status = dfs(graph,'A','G',[],[],0,3)
-# print(path1)
-
 if status:
     print(f"Found \npath = {path1}")
 else:
