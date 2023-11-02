@@ -1,36 +1,27 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[110]:
-
 
 def booth(a, m, q, q1, n, n_len):
+    print('iteration :',n,a,q,q1)
     if n==0:
-        return (a,q)
-    print(m,a,q,q1,n,'after iterations')
-#     print(q[-1],q1[-1])
+        return  f"Answer : {a,q} deci : {int(a+q, 2)}" if a[0] == '0' else f"Answer is negative : {a,q}\n 2's Complement : {complement(a+q)}\n deci : {int(complement(a+q),2)}"
     if q[-1] == "1" and q1[-1] == '0':
         print('10 <-')
         a = add(a,complement(m.zfill(n_len)))
         if len(a)!=n_len:
             a = a[1:]
         print(a,'a')
+        print(n,a,q,q1,'before ars')
         a,q,q1 = ars(a,q,q1)
-#         print(n,a,q,q1,'after ars')
     elif q[-1] == '0' and q1[-1] == '1':
         print('01 <-')
         a = add(a,m)
         if len(a)!=n_len:
             a = a[1:]
         print(a)
+        print(n,a,q,q1,'before ars')
         a,q,q1 = ars(a,q,q1)
-        print(n,a,q,q1,'after ars')
     elif (q[-1] == '1' and q1[-1] =='1') or (q[-1] =='0' and q1[-1] == '0'):
         print('00 or 11 <-')
         a,q,q1 = ars(a,q,q1)
-#         print(n,a,q,q1,'after ars')
-#     print(n,'n')
-    
     return booth(a, m, q, q1, n-1,n_len)
 
 
@@ -52,7 +43,6 @@ def add(a,b):
 
 # enter binary in string 
 def complement(a):
-#     print(a[2:])
     res = ""
     for i in a:
         if  i == '1' :
@@ -65,37 +55,21 @@ def complement(a):
 
 def ars(a,q,q1):
     q1 = q[-1]
-#     print(q1)
     q = a[-1] + q[:-1]
-#     print(q)
     a = a[0]+ a[:-1]
-#     print(a)
     return a,q,q1
 
-a = input("Enter a number : ")
-b = input("Enter a number : ")
-high = max(a,b)
-print(bin(int(high)))
-print(booth('0000', bin(2)[2:].zfill(4), bin(3)[2:].zfill(4), '0', 4, 4))
+a = int(input("Enter a number : "))
+b = int(input("Enter a number : "))
+# a,b = int(-5), int(-8)
+n = len(bin(max(abs(a),abs(b)))[2:])+1
 
-
-# In[52]:
-
-
-def complement(a):
-#     print(a[2:])
-    res = ""
-    for i in a:
-        if  i == '1' :
-            res += '0'
-        elif i == '0':
-            res += '1'
-    return res
-
-print(complement("101"))
-
-
-# In[59]:
+a = bin(a)[2:].zfill(n) if a>=0 else complement(bin(a)[3:].zfill(n))
+b = bin(b)[2:].zfill(n) if b>=0 else complement(bin(b)[3:].zfill(n))
+print(a,b)
+print(n)
+print(f"M = {a}, Q = {b}, A={'0'*n}")
+print(booth('0'*n, a.zfill(n), b.zfill(n), '0', n, n))
 
 
 def ars(a,q,q1):
@@ -107,14 +81,6 @@ def ars(a,q,q1):
     print(a)
     return a,q,q1
 
-print(ars('1001','0011','0'))
-
-
-# In[26]:
-
-
-a = "101"
-b = "101"
 def add(a,b):
     max_len = max(len(a), len(b))
     a = a.zfill(max_len)
@@ -130,6 +96,3 @@ def add(a,b):
     if carry != 0:
         result = '1' + result
     return result.zfill(max_len)
-print(int(add(a,b),2))
-print()
-
