@@ -47,7 +47,7 @@ def sln(init_state,goal_state):
         child = gn(current_state,prev_heu,goal_state)
         
         if child==0:
-            print(f"all nodes have same heuristic values  - {current_state}\n")
+            print(f"No better heuristic value is obtained thus declaring this as goal state - {current_state}\n")
             return
         print(f"Child choose for exploration : {child}\n")        
         current_state = copy.deepcopy(child)
