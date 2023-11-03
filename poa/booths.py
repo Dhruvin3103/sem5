@@ -1,4 +1,3 @@
-
 def booth(a, m, q, q1, n, n_len):
     print('iteration :',n,a,q,q1)
     if n==0:
