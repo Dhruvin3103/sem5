@@ -11,18 +11,17 @@ def gn(curr_state,prev_heu,goal_state):
                 temp1 = copy.deepcopy(temp)
                 if j != i:
                     temp1[j] = temp1[j] + [elem]
-                    if (temp1 not in visited_states):
-                        curr_heu=heuristic(temp1,goal_state)
-                        if curr_heu>prev_heu:
-                            child = copy.deepcopy(temp1)
-                            return child
+                    curr_heu=heuristic(temp1,goal_state)
+                    if curr_heu>prev_heu:
+                        child = copy.deepcopy(temp1)
+                        return child
     return 0
+
 def heuristic(curr_state,goal_state):
     goal_=goal_state[3]
     val=0
     for i in range(len(curr_state)):
         check_val=curr_state[i]
-        print(check_val,goal_)
         if len(check_val)>0:
             for j in range(len(check_val)):
                 if check_val[j]!=goal_[j]:
@@ -31,26 +30,26 @@ def heuristic(curr_state,goal_state):
                 else:
                     # val+=1
                     val+=j
+    print(f"heuristic value for {curr_state} is {val}")
     return val
  
 def sln(init_state,goal_state):
     global visited_states
     if (init_state == goal_state):
-        print (goal_state)
-        print("solution found!")
+        print(f"solution found! {goal_state}\n")
         return
     current_state = copy.deepcopy(init_state)
  
     while(True):
         visited_states.append(copy.deepcopy(current_state))
-        print(current_state)
+        print(f"Current State : {current_state}")
         prev_heu=heuristic(current_state,goal_state)
-        print(prev_heu,'heu')
         child = gn(current_state,prev_heu,goal_state)
-        print(child,'child')
+        
         if child==0:
-            print("Final state - ",current_state)
+            print(f"all nodes have same heuristic values  - {current_state}\n")
             return
+        print(f"Child choose for exploration : {child}\n")        
         current_state = copy.deepcopy(child)
  
 def main():
