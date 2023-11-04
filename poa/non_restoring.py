@@ -1,21 +1,24 @@
-def nonrestore(a, m, q, n, n_len):
+def nonrestore(a, q, m, n, n_len):
     print('iteration :',n,a,q)
     if n==0:
+        if a[0] == '1':
+            a = add(a,m)
+        
         return  f"Quotient : bin : {q} Deci : {int(q,2)}\n Remainder : bin : {a},deci : {int(a,2)}"
     a, q = lrs(a,q)
-    a = add(a,complement(m))
-    if len(a) > n_len:
-        a = a[1:]
+
     if a[0] == '1':
-        q = q.replace('_','0')
-        print(a)
         a = add(a,m)
         if len(a) > n_len:
             a = a[1:]
+        q = q.replace('_','1') if a[0] == '0' else q.replace('_','0')
     else:
-        q = q.replace('_','1')
+        a = add(a,complement(m))
+        if len(a) > n_len:
+            a = a[1:]
+        q = q.replace('_','1') if a[0] == '0' else q.replace('_','0')
     
-    return nonrestore(a, m, q, n-1,n_len)
+    return nonrestore(a, q, m, n-1,n_len)
 
 
 def add(a,b):
@@ -51,17 +54,17 @@ def lrs(a,q):
     q = q[1:] +"_"
     return a,q
 
-q = int(input("Enter a q : "))
-m = int(input("Enter a m : "))
-# q,m = int(5), int(14)
+# q = int(input("Enter a q : "))
+# m = int(input("Enter a m : "))
+q,m = int(15), int(4)
 n = len(bin(max(abs(q),abs(m)))[2:])+1
 
-q = bin(q)[2:].zfill(n) if q>=0 else complement(bin(q)[3:].zfill(n))
+q = bin(q)[2:].zfill(n-1) if q>=0 else complement(bin(q)[3:].zfill(n-1))
 m = bin(m)[2:].zfill(n) if m>=0 else complement(bin(m)[3:].zfill(n))
 print(q,m)
 print(n)
 print(f"M = {m}, Q = {q}, A={'0'*n}")
-print(nonrestore('0'*n, q.zfill(n), m.zfill(n), n, n))
+print(nonrestore('0'*n, q.zfill(n-1), m.zfill(n), n-1, n-1))
 
 
 

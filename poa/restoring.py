@@ -1,4 +1,4 @@
-def restoring(a, m, q, n, n_len):
+def restoring(a, q, m, n, n_len):
     print('iteration :',n,a,q)
     if n==0:
         return  f"Quotient : bin : {q} Deci : {int(q,2)}\n Remainder : bin : {a},deci : {int(a,2)}"
@@ -15,7 +15,7 @@ def restoring(a, m, q, n, n_len):
     else:
         q = q.replace('_','1')
     
-    return restoring(a, m, q, n-1,n_len)
+    return restoring(a, q, m, n-1,n_len)
 
 
 def add(a,b):
