@@ -58,6 +58,9 @@ def GA(gene,iter,n):
         return
     
     x,fx, fx_sum,fx_avg,excepted_count,actual_count,mate_pool = selection(gene)
+    if sum(actual_count)!=len(gene):
+        print("Error dont know what to do at this situation ")
+        return 
     print(f"\n------------------------------------------------- GENERATION {n} --------------------------------------------------")
     print("Initial Population\tX Value\t\tFitness Value( f(x) )\tProbability(Expected Count)\tActual Count")
     print(f"-----------------------------------------------------------------------------------------------------------------")
