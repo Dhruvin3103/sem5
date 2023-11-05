@@ -1,51 +1,12 @@
-def binary_addition(a, b):
-    carry = 0
-    result = []
-    for i in range(max(len(a), len(b))):
-        bit_a = int(a[-1]) if i < len(a) else 0
-        bit_b = int(b[-1]) if i < len(b) else 0
-        sum_bit = bit_a + bit_b + carry
-        carry = sum_bit // 2
-        result.insert(0, str(sum_bit % 2))
-    if carry:
-        result.insert(0, str(carry))
-    return "".join(result)
+from random import randint
+size = 10  # Adjust this to the desired size of your array
+random_array = []
 
-def binary_negation(b):
-    inverted_b = "".join("1" if bit == "0" else "0" for bit in b)
-    negated_b = binary_addition(inverted_b, "1")
-    return negated_b
+for i in range(size):
+    while True:
+        value = random.randint(0, size - 1)
+        if value != i and value not in random_array:
+            random_array.append(value)
+            break
 
-def booths_algorithm(m, q):
-    m_length = len(m)
-    q_length = len(q)
-    if m_length != q_length:
-        raise ValueError("Both numbers should have the same length.")
-
-    n = m_length
-
-    A = "0" * (2 * n) + m  # Initialize A with 0's and m.
-    Q = "0" * n + q  # Initialize Q with 0's and q.
-    Q_1 = "0"  # Q-1 initialized to 0.
-
-    for i in range(n):
-        if (Q[-1], Q_1) == ("0", "1"):
-            A = binary_addition(A, m)
-        elif (Q[-1], Q_1) == ("1", "0"):
-            A = binary_addition(A, binary_negation(m))
-
-        # Shift A and Q right by 1.
-        A = A[:-1]
-        Q_1 = Q[-1]
-        Q = Q[:-1]
-
-    return A, Q
-
-if __name__ == "__main__":
-    m = input("Enter the binary multiplier (m): ")
-    q = input("Enter the binary multiplicand (q): ")
-
-    A_result, Q_result = booths_algorithm(m, q)
-
-    print(f"Result (A): {A_result}")
-    print(f"Result (Q): {Q_result}")
+print(random_array)
