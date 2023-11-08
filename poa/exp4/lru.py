@@ -10,7 +10,7 @@ data = [4, 7, 6, 1, 7, 6, 1, 2, 7, 2]
 nf = 3
 frame = [-1] * nf
 hit = 0
-
+print(f"Page Reference : {data}\n")
 for i in data:
     if i in frame:
         hit += 1

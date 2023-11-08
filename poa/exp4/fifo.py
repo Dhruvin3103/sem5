@@ -4,7 +4,7 @@ def fifo(p, n, f):
     queue = []
     hit = 0
     fr = 0
-
+    print(f"Page Reference : {p}\n")
     for page in p:
         queue.append(page)
         if frames.count(-1) !=0:

@@ -1,4 +1,5 @@
 def opt(p, n, f):
+    print(f"Page Reference : {p}\n")
     hit = 0
     ff = [-1] * f
 
@@ -14,6 +15,8 @@ def opt(p, n, f):
             print(f"Input {p[i]} : {ff}, Fault")
             
     print("\nTotal hits:", hit, "Total faults:", n - hit)
+    print(f"hit ratio : {hit/n}")
+    
 
 pageref = [4 , 7, 6, 1, 7, 6, 1, 2, 7, 2]
 n = len(pageref)
