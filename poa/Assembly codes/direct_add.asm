@@ -9,10 +9,11 @@ MOV AX,[1000h]
 MOV BX,[1002h]
 MOV CL,00h
 ADD AX,BX
-MOV DX,AX
-JNC jump
+MOV [1004h],AX
+JNC carry
 INC CL
-jump:
+carry:  
+MOV [1006h], CL
 HLT
 
 ret
