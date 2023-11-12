@@ -1,5 +1,5 @@
 DATA SEGMENT
-    ARR DB 5,3,7,1,9,2,6,8,4
+    ARR DB 6,89,7,23,-4,53,32,9,40
     LEN DW SI $-ARR
     MIN DB ?
     MAX DB ?

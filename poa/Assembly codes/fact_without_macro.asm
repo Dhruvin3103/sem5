@@ -1,21 +1,20 @@
 DATA SEGMENT 
-    A DB 5
-    FACT DB ?
+    A DW 7
+    FACT DW ?
     DATA ENDS
 
 CODE SEGMENT
     START:
     MOV AX,DATA
     MOV DS,AX
-    MOV AH,00
-    MOV AL,A
+    MOV AX,A
     L1:
     DEC A
     MUL A
-    MOV CL,A
-    CMP CL,01
+    MOV CX,A
+    CMP CX,01
     JNZ L1
-    MOV FACT,AL
+    MOV FACT,AX
     CODE ENDS
 END START
     
