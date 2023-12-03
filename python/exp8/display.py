@@ -9,5 +9,8 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 mycursor.execute("SELECT * FROM Laptop")
 res = mycursor.fetchall()
+print('\n')
 for x in res:
     print(x)
+    
+print('\n')

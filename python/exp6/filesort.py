@@ -7,24 +7,19 @@ with open('file1.txt', 'r') as file_a, open('file2.txt', 'r') as file_b, open('f
     i,j = 0,0
     while i<fi and j<fj:
         if int(fa[i].strip()) > int(fb[j].strip()):
-            # print('if')
             file_c.write((fb[j].strip())+'\n')
             j+=1
         elif  int(fa[i].strip()) < int(fb[j].strip()):
-            # print('else')
             file_c.write((fa[j].strip())+'\n')
-            
             i+=1
         else:
-            # print('else else')
             file_c.write((fa[i].strip())+'\n')
             file_c.write((fb[j].strip())+'\n')
             i+1
             j+=1
     while i<fi:
         file_c.write(fa[i].strip()+'\n')
-        i+=1
-        
+        i+=1       
     while j<fj:
         file_c.write(fb[j].strip()+'\n')
         j+=1

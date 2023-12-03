@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("ALTER TABLE Laptop ADD Rating int(10)")
+mycursor.execute("ALTER TABLE Laptop ADD payment_mode varchar(250)")
 mydb.commit()
 mycursor.execute("SELECT * FROM Laptop")
 res = mycursor.fetchall()

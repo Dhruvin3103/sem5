@@ -13,7 +13,7 @@ res = mycursor.fetchall()
 for x in res:
     print(x)
 
-mycursor.execute("UPDATE Laptop SET Price = 65000 WHERE Id = 16")
+mycursor.execute("UPDATE Laptop SET Price = 150000 WHERE Id = 16")
 mydb.commit()
 print("Updated Records : ")
 mycursor = mydb.cursor()

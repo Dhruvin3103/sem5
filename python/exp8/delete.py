@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("DELETE FROM Laptop WHERE Id = 15")
+mycursor.execute("DELETE FROM Laptop WHERE Id = 17")
 mydb.commit()
 res = mycursor.fetchall()
 for x in res:

@@ -80,6 +80,7 @@ def reveal(board, revealed, row, col,num_mines):
 
 size = 3
 num_mines = 3
+
 win = False
 board = initialize_board(size, num_mines)
 revealed = [[False for _ in range(size)] for _ in range(size)]

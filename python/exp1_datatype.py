@@ -1,42 +1,43 @@
 a = "hello world"
-print(a,type(a))
+print('\nStrings implemenation : ',a,type(a))
 
 b = 2
-print(b,type(b))
+print('\ninteger implemenation : ',b,type(b))
 
 c = 29.87
-print(c,type(c))
+print('\nfloat implemenation : ',c,type(c))
 
 com = 15+98j
-print(com,type(com))
+print('\nComplex numbers implemenation : ',com,type(com))
 
 l = [1,'one',1.00,1+2j]
-print(l,type(l))
+print('\nlist implemenation : ',l,type(l))
 
 ran = range(10)
-print(ran,type(ran))
+print('\nRange implemenation : ',ran,type(ran))
 
 tup = ('abc',12,0.92)
-print(tup,type(tup))
+print('\ntuple implemenation : ',tup,type(tup))
 
 dic = {1:'hi',2:'you'}
+print('\nDictionary implemenation : ')
 print(dic,type(dic))
-print(dic.values())
-print(dic.items())
-print(dic.keys())
+print('Dictionary values : ',dic.values())
+print('Dictionary items : ',dic.items())
+print('Dictionary keys : ',dic.keys())
 
 
 
 s = {'hello','world','python'}
-print(s,type(s))
+print('\nSet Implementation : ',s,type(s))
 
 by = b'hi'
-print(by,type(by))
+print('\nByte implemenation : ',by,type(by))
 
 n = None
-print(n,type(n))
+print('\nNone type : ',n,type(n))
 
 id1 = 1223
-print(id(id1),id1)
+print('id of id1 : ',id(id1),'is id of ',id1)
 
 
