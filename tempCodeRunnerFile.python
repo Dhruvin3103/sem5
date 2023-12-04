@@ -1,37 +1,97 @@
-# append()-appends element to list
-print("append() function")
-list1 = [10, 20, 30]
-print("Original list:", list1)
-list1.append(50)
-print("List After Appending 50:", list1)
-# extend()- extends by adding on with new list
-print("extend() function")
-list1 = [10, 20, 30]
-print("Original list:", list1)
-list2 = [222, 333]
-list1.extend(list2)
-print("After extending to list2, the original list is : ", list1)
-# insert() – inserts element at particular location
-print("insert() function")
-list1 = [10, 20, 30]
-print("Original list:", list1)
-list1.insert(2, 15)
-print("List After Appending 15:", list1)
-# pop()- pops element from list
-print("pop() function")
-list1 = [10, 20, 30]
-print("Original list:", list1)
-list1.pop(2)
-print("List after poping from index 2:", list1)
-# copy()-copies a list
-print("copy() function")
-list1 = [10, 20, 30]
-print("Original list:", list1)
-list2 = list1.copy()
-print("Copied list is:", list2)
-# clear()-clears the list
-print("Clear() function")
-list1 = [10, 20, 30]
-print("Original list:", list1)
-list2 = list1.clear()
-print("List after clearing:", list2)
+import random
+
+class DotsAndBoxes:
+    def __init__(self, rows, cols):
+        self.rows = rows
+        self.cols = cols
+        self.horizontal_lines = [[' ' for _ in range(cols - 1)] for _ in range(rows)]
+        self.vertical_lines = [[' ' for _ in range(cols)] for _ in range(rows - 1)]
+        self.boxes = [[' ' for _ in range(cols - 1)] for _ in range(rows - 1)]
+        self.current_player = 1
+
+    def display_board(self):
+        for i in range(self.rows):
+            # Display horizontal lines
+            print('  '.join(self.horizontal_lines[i]))
+            if i < self.rows - 1:
+                # Display vertical lines and boxes
+                print(' '.join(self.vertical_lines[i]) + ' ' + '  '.join(self.boxes[i]))
+        print()
+
+    def make_move(self, move):
+        row, col, direction = move
+        if direction == 'h' and self.horizontal_lines[row][col] == ' ':
+            self.horizontal_lines[row][col] = '-'
+        elif direction == 'v' and self.vertical_lines[row][col] == ' ':
+            self.vertical_lines[row][col] = '|'
+        else:
+            print("Invalid move. Try again.")
+            return False
+
+        self.check_for_boxes(row, col)
+        self.switch_player()
+        return True
+
+    def check_for_boxes(self, row, col):
+        if row < self.rows - 1 and col < self.cols - 1:
+            # Check for a completed box
+            if self.horizontal_lines[row][col] == '-' and \
+               self.horizontal_lines[row + 1][col] == '-' and \
+               self.vertical_lines[row][col] == '|' and \
+               self.vertical_lines[row][col + 1] == '|':
+                self.boxes[row][col] = str(self.current_player)
+
+    def switch_player(self):
+        self.current_player = 3 - self.current_player  # Switch between players 1 and 2
+
+    def is_game_over(self):
+        return all(line != ' ' for row in self.boxes for line in row)
+
+class AIPlayer:
+    def __init__(self, player_number):
+        self.player_number = player_number
+
+    def make_move(self, game):
+        # AI makes a random valid move
+        valid_moves = []
+        for row in range(game.rows):
+            for col in range(game.cols - 1):
+                if game.horizontal_lines[row][col] == ' ':
+                    valid_moves.append((row, col, 'h'))
+        for row in range(game.rows - 1):
+            for col in range(game.cols):
+                if game.vertical_lines[row][col] == ' ':
+                    valid_moves.append((row, col, 'v'))
+
+        if not valid_moves:
+            return None
+
+        return random.choice(valid_moves)
+
+def main():
+    rows = int(input("Enter the number of rows: "))
+    cols = int(input("Enter the number of columns: "))
+    game = DotsAndBoxes(rows, cols)
+    ai_player = AIPlayer(2)  # AI is player 2
+
+    while not game.is_game_over():
+        game.display_board()
+
+        if game.current_player == 1:
+            # Human player's turn
+            row = int(input("Enter row: "))
+            col = int(input("Enter column: "))
+            direction = input("Enter direction (h for horizontal, v for vertical): ").lower()
+            move = (row, col, direction)
+        else:
+            # AI player's turn
+            move = ai_player.make_move(game)
+            print(f"AI player chooses: {move}")
+
+        game.make_move(move)
+
+    game.display_board()
+    print("Game Over!")
+
+if __name__ == "__main__":
+    main()

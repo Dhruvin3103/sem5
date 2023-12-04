@@ -74,4 +74,4 @@ def GA(gene,iter,n):
         print(f"{mate_pool[i]}\t\t{mate[i]}\t\t{crossover_points[i]}\t\t\t{new_poplu[i]}\t\t\t{x[i]}\t\t{fx[i]}")
 
     GA(new_poplu,iter-1,n+1)
-GA(gene,4,0)
+GA(gene,3,0)
