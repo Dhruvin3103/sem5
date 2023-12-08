@@ -1,97 +1,179 @@
 import random
+from secrets import choice
 
-class DotsAndBoxes:
-    def __init__(self, rows, cols):
-        self.rows = rows
-        self.cols = cols
-        self.horizontal_lines = [[' ' for _ in range(cols - 1)] for _ in range(rows)]
-        self.vertical_lines = [[' ' for _ in range(cols)] for _ in range(rows - 1)]
-        self.boxes = [[' ' for _ in range(cols - 1)] for _ in range(rows - 1)]
-        self.current_player = 1
+splits = 0
+parent_splits = 0
+fusions = 0
+parent_fusions = 0
 
-    def display_board(self):
-        for i in range(self.rows):
-            # Display horizontal lines
-            print('  '.join(self.horizontal_lines[i]))
-            if i < self.rows - 1:
-                # Display vertical lines and boxes
-                print(' '.join(self.vertical_lines[i]) + ' ' + '  '.join(self.boxes[i]))
-        print()
 
-    def make_move(self, move):
-        row, col, direction = move
-        if direction == 'h' and self.horizontal_lines[row][col] == ' ':
-            self.horizontal_lines[row][col] = '-'
-        elif direction == 'v' and self.vertical_lines[row][col] == ' ':
-            self.vertical_lines[row][col] = '|'
+class Node(object):
+    def __init__(self, parent=None):
+        self.keys: list = []
+        self.values: list[Node] = []
+        self.parent: Node = parent
+
+    def index(self, key):
+        for i, item in enumerate(self.keys):
+            if key < item:
+                return i
+        return len(self.keys)
+
+    def __getitem__(self, item):
+        return self.values[self.index(item)]
+
+    def __setitem__(self, key, value):
+        i = self.index(key)
+        self.keys[i:i] = [key]
+        self.values.pop(i)
+        self.values[i:i] = value
+
+    def split(self):
+        global splits, parent_splits
+        splits += 1
+        parent_splits += 1
+        left = Node(self.parent)
+        mid = len(self.keys) // 2
+        left.keys = self.keys[:mid]
+        left.values = self.values[:mid + 1]
+        for child in left.values:
+            child.parent = left
+        key = self.keys[mid]
+        self.keys = self.keys[mid + 1:]
+        self.values = self.values[mid + 1:]
+        return key, [left, self]
+
+
+class Leaf(Node):
+    def __init__(self, parent=None, prev_node=None, next_node=None):
+        super(Leaf, self).__init__(parent)
+        self.next: Leaf = next_node
+        if next_node is not None:
+            next_node.prev = self
+        self.prev: Leaf = prev_node
+        if prev_node is not None:
+            prev_node.next = self
+
+    def __getitem__(self, item):
+        return self.values[self.keys.index(item)]
+
+    def __setitem__(self, key, value):
+        i = self.index(key)
+        if key not in self.keys:
+            self.keys[i:i] = [key]
+            self.values[i:i] = [value]
         else:
-            print("Invalid move. Try again.")
-            return False
+            self.values[i - 1] = value
 
-        self.check_for_boxes(row, col)
-        self.switch_player()
-        return True
+    def split(self):
+        global splits
+        splits += 1
+        left = Leaf(self.parent, self.prev, self)
+        mid = len(self.keys) // 2
+        left.keys = self.keys[:mid]
+        left.values = self.values[:mid]
+        self.keys: list = self.keys[mid:]
+        self.values: list = self.values[mid:]
+        return self.keys[0], [left, self]
 
-    def check_for_boxes(self, row, col):
-        if row < self.rows - 1 and col < self.cols - 1:
-            # Check for a completed box
-            if self.horizontal_lines[row][col] == '-' and \
-               self.horizontal_lines[row + 1][col] == '-' and \
-               self.vertical_lines[row][col] == '|' and \
-               self.vertical_lines[row][col + 1] == '|':
-                self.boxes[row][col] = str(self.current_player)
 
-    def switch_player(self):
-        self.current_player = 3 - self.current_player  # Switch between players 1 and 2
+class BPlusTree(object):
+    root: Node
 
-    def is_game_over(self):
-        return all(line != ' ' for row in self.boxes for line in row)
+    def __init__(self, maximum=4):
+        self.root = Leaf()
+        self.maximum: int = maximum if maximum > 2 else 2
+        self.minimum: int = self.maximum // 2
+        self.depth = 0
 
-class AIPlayer:
-    def __init__(self, player_number):
-        self.player_number = player_number
+    def find(self, key) -> Leaf:
+        node = self.root
+        while type(node) is not Leaf:
+            node = node[key]
+        return node
 
-    def make_move(self, game):
-        # AI makes a random valid move
-        valid_moves = []
-        for row in range(game.rows):
-            for col in range(game.cols - 1):
-                if game.horizontal_lines[row][col] == ' ':
-                    valid_moves.append((row, col, 'h'))
-        for row in range(game.rows - 1):
-            for col in range(game.cols):
-                if game.vertical_lines[row][col] == ' ':
-                    valid_moves.append((row, col, 'v'))
+    def __getitem__(self, item):
+        return self.find(item)[item]
 
-        if not valid_moves:
-            return None
+    def query(self, key):
+        leaf = self.find(key)
+        return leaf[key] if key in leaf.keys else None
 
-        return random.choice(valid_moves)
-
-def main():
-    rows = int(input("Enter the number of rows: "))
-    cols = int(input("Enter the number of columns: "))
-    game = DotsAndBoxes(rows, cols)
-    ai_player = AIPlayer(2)  # AI is player 2
-
-    while not game.is_game_over():
-        game.display_board()
-
-        if game.current_player == 1:
-            # Human player's turn
-            row = int(input("Enter row: "))
-            col = int(input("Enter column: "))
-            direction = input("Enter direction (h for horizontal, v for vertical): ").lower()
-            move = (row, col, direction)
+    def change(self, key, value):
+        leaf = self.find(key)
+        if key not in leaf.keys:
+            return False, leaf
         else:
-            # AI player's turn
-            move = ai_player.make_move(game)
-            print(f"AI player chooses: {move}")
+            leaf[key] = value
+            return True, leaf
 
-        game.make_move(move)
+    def __setitem__(self, key, value, leaf=None):
+        if leaf is None:
+            leaf = self.find(key)
+        leaf[key] = value
+        if len(leaf.keys) > self.maximum:
+            self.insert_index(*leaf.split())
 
-    game.display_board()
-    print("Game Over!")
+    def insert(self, key, value):
+        leaf = self.find(key)
+        if key in leaf.keys:
+            return False, leaf
+        else:
+            self.__setitem__(key, value, leaf)
+            return True, leaf
 
-if __name__ == "__main__":
-    main()
+    def insert_index(self, key, values: list[Node]):
+        parent = values[1].parent
+        if parent is None:
+            values[0].parent = values[1].parent = self.root = Node()
+            self.depth += 1
+            self.root.keys = [key]
+            self.root.values = values
+            return
+        parent[key] = values
+        if len(parent.keys) > self.maximum:
+            self.insert_index(*parent.split())
+
+    def show(self, node=None, file=None, _prefix="", _last=True):
+        if node is None:
+            node = self.root
+        print(_prefix, "`- " if _last else "|- ", node.keys, sep="", file=file)
+        _prefix += " " if _last else "| "
+        if type(node) is Node:
+            for i, child in enumerate(node.values):
+                _last = (i == len(node.values) - 1)
+                self.show(child, file, _prefix, _last)
+
+
+def demo():
+    bplustree = BPlusTree()
+    flag = True
+    while flag:
+        print("\n******** B+ Tree ********")
+        print("1.Insert")
+        print("2.Search")
+        print("3.Show Tree")
+        print("4.Exit")
+        n = int(input("Enter Your Choice : "))
+        if n == 1:
+            value = int(input("Enter Element to Insert : "))
+            bplustree[value] = value
+        elif n == 2:
+            value = int(input("Enter Element to Search : "))
+            ans = bplustree.find(value)
+            if ans.values:
+                print("Value found in the tree")
+            else:
+                print("Value not found in the tree")
+        elif n == 3:
+            bplustree.show()
+        elif n == 4:
+            flag = False
+            break
+        else:
+            flag = False
+            break
+
+
+if __name__ == '__main__':
+    demo()
