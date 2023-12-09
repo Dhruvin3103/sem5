@@ -16,51 +16,47 @@
   </style>
 </head>
 <body>
-  <button type="button" onclick="loadXMLDoc()">View Information about the Books</button>
-  <br><br>
   <div>
     <label>Search a title</label>
-    <input type="text" name="title" onchange="performQuery(event)"/>
+    <input type="text" name="title"/>
   </div>
   <div>
     <label>Search an author</label>
-    <input type="text" name="author" onchange="performQuery(event)"/>
+    <input type="text" name="author"/>
   </div>
   <div>
     <label>Search a genre</label>
-    <input type="text" name="genre" onchange="performQuery(event)"/>
+    <input type="text" name="genre"/>
   </div>
   <div>
     <label>Search a price</label>
-    <input type="text" name="price" onchange="performQuery(event)"/>
+    <input type="text" name="price"/>
   </div>
   <div>
     <label>Search a Publish Date</label>
-    <input type="text" name="publish_date" onchange="performQuery(event)"/>
+    <input type="text" name="publish_date"/>
   </div>
+  <button type="button" onclick="performQuery()">Search</button>
   <table id="data-table"></table>
   <h2>Result</h2>
   <table id="query-table"></table>
 
   <script>
     var arrayObj = [];
-
     function loadXMLDoc() {
       var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", "books.xml", true);
+      xmlhttp.send();
       xmlhttp.onreadystatechange = function() {
-        console.log(this)
-        if (this.status == 200) {
+        if (this.readyState == 4 && this.status == 200) {
           myFunction(this);
         }
       };
-      xmlhttp.open("GET", "books.xml", true);
-      xmlhttp.send();
     }
-
+    loadXMLDoc()
     function myFunction(xml) {
       var i;
       var xmlDoc = xml.responseXML;
-      console.log(xmlDoc)
       var table = "<tr><th>Title</th><th>Author</th><th>Genre</th><th>Price</th><th>Publish Date</th><th>Description</th></tr>";
       var x = xmlDoc.getElementsByTagName("book");
 
@@ -90,29 +86,37 @@
       }
 
       document.getElementById("data-table").innerHTML = table;
-      console.log(arrayObj);
     }
 
-    function performQuery(event) {
-      var res = arrayObj.find((obj) =>
-        obj[event.target.name].toLowerCase().includes(event.target.value.toLowerCase()));
-      console.log(res);
+    function performQuery() {
+      var query = {};
+      document.querySelectorAll('input').forEach((input) =>{
+        query[input.name] = input.value.toLowerCase();
+      });
+      var results = arrayObj.filter((obj)=> {
+        var keys=Object.keys(query)
+        return keys.every((key)=>{
+          return obj[key].toLowerCase().includes(query[key]);
+        });
+      });
 
-      if (res) {
+      if (results.length > 0) {
         var queryTable = "<tr><th>Title</th><th>Author</th><th>Genre</th><th>Price</th><th>Publish Date</th><th>Description</th></tr>";
-        queryTable += "<tr><td>" +
-          res.title +
-          "</td><td>" +
-          res.author +
-          "</td><td>" +
-          res.genre +
-          "</td><td>"+
-          res.price+
-          "</td><td>"+
-          res.publish_date +
-          "</td><td>"+
-          res.description +
-          "</td></tr>";
+        results.forEach((res)=> {
+          queryTable += "<tr><td>" +
+            res.title +
+            "</td><td>" +
+            res.author +
+            "</td><td>" +
+            res.genre +
+            "</td><td>"+
+            res.price+
+            "</td><td>"+
+            res.publish_date +
+            "</td><td>"+
+            res.description +
+            "</td></tr>";
+        });
         document.getElementById("query-table").innerHTML = queryTable;
       } else {
         alert("No result found!");
