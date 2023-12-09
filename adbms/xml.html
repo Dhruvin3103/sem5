@@ -48,7 +48,8 @@
     function loadXMLDoc() {
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        console.log(this)
+        if (this.status == 200) {
           myFunction(this);
         }
       };
@@ -59,6 +60,7 @@
     function myFunction(xml) {
       var i;
       var xmlDoc = xml.responseXML;
+      console.log(xmlDoc)
       var table = "<tr><th>Title</th><th>Author</th><th>Genre</th><th>Price</th><th>Publish Date</th><th>Description</th></tr>";
       var x = xmlDoc.getElementsByTagName("book");
 
