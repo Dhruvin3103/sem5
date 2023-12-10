@@ -68,7 +68,7 @@ def GA(gene, iter, n):
     print("Initial Population\tX Value\t\tFitness Value( f(x) )\tProbability(Expected Count)\tActual Count")
     print(f"-----------------------------------------------------------------------------------------------------------------")
     for i in range(len(gene)):
-        print(f"{gene[i]}\t\t\t{x[i]}\t\t{fx[i]}\t\t\t{expected_count[i]}\t\t\t\t{actual_count[i]}")
+        print(f"{gene[i]}\t\t\t{x[i]}\t\t{fx[i]}\t\t\t{excepted_count[i]}\t\t\t\t{actual_count[i]}")
     mate_pool, new_poplu, mate, crossover_points, x, fx = crossover(mate_pool)
     print(f"\n----------------------------------------------- New Population {n} ------------------------------------------------")
     print("Mate Pool\tMate\t\tCrossover Points\tNew Population\t\tx value\t\tf(x)")
