@@ -33,8 +33,7 @@ def dfs(graph, current_node, goal_node, visited, path, curr_depth, depth):
             for i in graph[current_node]:
                 path, status = dfs(graph, i, goal_node, visited, path, curr_depth+1, depth)
                 if status == True:
-                    return path, True
-                
+                    return path, True       
         return path,False
     else:
         return path,False

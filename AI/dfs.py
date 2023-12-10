@@ -4,9 +4,9 @@ graph = {
   'C': ['A', 'D', 'E'],
   'D': ['F', 'C', 'B'],
   'E': ['C', 'F', 'G'],
-  'F': ['D', 'E', 'H'],
-  'G': ['E', 'H'],
-  'H': ['F', 'G']
+  'F': ['D', 'H', 'E'],
+  'G': ['E'],
+  'H': ['F']
 }
 
 def dfs(graph, current_node, goal_node, visited, path):

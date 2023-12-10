@@ -32,7 +32,7 @@ for i in range(epochs):
 
         dW = c * error * X[j]
         W += dW
-        print("W", j, W)
+        print("W", j, W, dW)
 
     print(f"W after {i + 1}epochs {W}")
 
@@ -53,3 +53,5 @@ test_data2 = np.array([0, 1, 0, 0, 1, 0, 0, 1, 1])
 print(f"\nPrediction for test data: {test_data1} which is M and model gives : ", test(test_data1,W))
 print(f"Prediction for test data: {test_data2} which is L and model gives : ", test(test_data2,W))
 
+
+# [ 1.   2.   2.5  0.5  2.   5.   1.  -1.5  0. ]

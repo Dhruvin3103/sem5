@@ -19,13 +19,10 @@ def selection(gene):
 def generate_mate(size,mate_element_size):
     if size % 2 != 0:
         return -1
-
     available_positions = list(range(size))
     random.shuffle(available_positions)
-
     mate = [-1] * size
     crossover =[-1] * size
-    
     for i in range(size):
         if mate[i] == -1:
             j = random.choice(available_positions)
@@ -48,15 +45,12 @@ def crossover(mate_pool):
         
     x = [int(x,2) for x in new_poplu]
     fx = [int(x)*int(x) for x in x]
-    
-        
     return mate_pool,new_poplu,mate,crossover_points,x, fx
     
 
 def GA(gene,iter,n):
     if iter == 0:
         return
-    
     x,fx, fx_sum,fx_avg,excepted_count,actual_count,mate_pool = selection(gene)
     if sum(actual_count)!=len(gene):
         print("Error dont know what to do at this situation ")

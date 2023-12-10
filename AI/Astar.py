@@ -111,6 +111,7 @@ def funcofn(gl,cn): # gl <- path of previous node , cn <- current node
 open_list = []
 close_list = []
 open_list.append([curr_node,graph_heu[curr_node],[curr_node]])
+print(open_list)
 n = 0 
 try:
     while True:
