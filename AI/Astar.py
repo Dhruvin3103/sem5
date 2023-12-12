@@ -38,6 +38,7 @@ graph_heu = {
 }
 curr_node = input("Enter Start Node : ") # this is also start node at the beginning
 goal_node = input("Enter Goal Node : ")
+
 def funcofn(gl,cn): # gl <- path of previous node , cn <- current node
     g =0
     print(gl,cn) 
@@ -45,6 +46,7 @@ def funcofn(gl,cn): # gl <- path of previous node , cn <- current node
         g += graph[gl[i]][gl[i+1]]
     g += graph[gl[-1]][cn] + graph_heu[cn] #graph['S']['A'] isme pehle graph['S'] execute hoga fir voh key se A ka value milega i.e. 5
     return g
+
 open_list = []    
 close_list = []
 open_list.append([curr_node,graph_heu[curr_node],[curr_node]])

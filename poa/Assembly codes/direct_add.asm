@@ -16,7 +16,3 @@ jump:
 HLT
 
 ret
-
-
-
-

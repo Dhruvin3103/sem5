@@ -1,29 +1,26 @@
-def fifo(p, n, f):
-    frames = [-1] * f
-    frame_set = set()
-    queue = []
-    hit = 0
-    fr = 0
-    print(f"Page Reference : {p}\n")
-    for page in p:
-        queue.append(page)
-        if frames.count(-1) !=0:
-            frames[fr] = page
-            print(f"Input {page} : {frames}, fault")
-        elif page not in frames:
-            e = queue.pop(0)
-            frames = [page if pg == e else pg for pg in frames]
-            print(f"Input {page} : {frames}, fault")
-        else:
-            hit += 1
-            print(f"Input {page} : {frames}, hit")
-        fr = (fr + 1) % f
+def find_pg(data,f,nf,queue):
+    while queue:
+        pg = queue.pop(0)
+        if pg in f:
+            return frame.index(pg)       
 
-        
+data = [4 , 7, 6, 1, 7, 6, 1, 2, 7, 2]
+nf = 3
+frame = [-1]*nf
+hit = 0
+queue = []
+print(data)
+for i,pg in enumerate(data):
+    queue.append(pg)
+    if pg in frame:
+        print(pg,frame,'hit')
+        hit+=1
+    elif -1 in frame:
+        frame[frame.index(-1)] = pg
+        print(pg,frame,'fault')
+    else:
+        pos = find_pg(data,frame,nf,queue)
+        frame[pos] = pg
+        print(pg,frame,'fault')
 
-    print(f"\nPage Hits are {hit} and faults are {len(p)-hit}\nhit ratio : {hit/len(p)}")
 
-pageref = [4, 7, 6, 1, 7, 6, 1, 2, 7, 2]
-n = 10
-fsize = 3
-fifo(pageref, n, fsize)

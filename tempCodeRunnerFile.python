@@ -1,70 +1,25 @@
-def add(a,b):
-    n = max(len(a),len(b))
-    a=a.zfill(n)
-    b=b.zfill(n)
-    result = ''
-    carry = 0
-    for i in range(n-1,-1,-1):
-       r = carry
-       r += 1 if a[i] == '1' else 0
-       r += 1 if b[i] == '1' else 0
-       result = ('1' if r%2==1 else '0') + result
-       carry = 0 if r<2 else 1
-       
-    if carry !=0 :
-        result = '1'+result
-    return result.zfill(n)
 
-def complement(a):
-    res = ''
-    
-    for i in a:
-        if i =='1': res+='0'
-        elif i == '0': res+='1'
-        
-    return add(res,'1')
+def find_pg(data,f,nf,queue):
+    while queue:
+        pg = queue.pop(0)
+        if pg in f:
+            return frame.index(pg)       
 
-
-def lrs(a,q):
-    a = a[1:]+q[0]
-    q = q[1:]+"_"
-    
-    return a,q
-    
-def nonresto(a,q,m,n,n_len,bit_len):
-    if n == 0:
-        if a[0] == '1':
-            a = add(a,m)
-            if len(a) != bit_len:
-                a =a[1:]
-
-        return a,q,int(a,2),int(q,2)
-    print(m,a,q,"count",n)
-    a,q = lrs(a,q)
-    print(m,a,q,"count",n)
-    if a[0] == '1':
-        print("A<0 yes",a,m)
-        a = add(a,m)
-        if len(a) != bit_len:
-            a = a[1:]
-        # print(m,a,q,"count",n)
-    elif a[0] == '0':
-        print("A<0 no ",a,complement(m.zfill(bit_len)))
-        a = add(a,complement(m.zfill(bit_len)))
-        print(a)
-        if len(a) != bit_len:
-            a = a[1:]
-        # print(m,a,q,"count",n)
-    # print(m,a,q,"count",n)
-    if a[0] == '0':
-        q = q[:-1] + '1'
-    elif a[0] == '1':
-        q = q[:-1] + '0'
-    print(m,a,q,"count",n)
-    return nonresto(a,q,m,n-1,n_len,bit_len)
-q="1110" 
-m="101"
-n=4
-print(nonresto('0'*(n+1),q.zfill(n),m.zfill(n+1),n,n,n+1))
-    
-        
+data = [4 , 7, 6, 1, 7, 6, 1, 2, 7, 2]
+nf = 3
+frame = [-1]*nf
+hit = 0
+queue = []
+print(data)
+for i,pg in enumerate(data):
+    queue.append(pg)
+    if pg in frame:
+        print(pg,frame,'hit')
+        hit+=1
+    elif -1 in frame:
+        frame[frame.index(-1)] = pg
+        print(pg,frame,'fault')
+    else:
+        pos = find_pg(data,frame,nf,queue)
+        frame[pos] = pg
+        print(pg,frame,'fault')
