@@ -8,10 +8,10 @@ CODE SEGMENT
     LEA DX,MSG
     MOV AH,09H 
     INT 21H
-    MOV AH,01
+    MOV AH,01h
     INT 21H
     MOV DL,AL
-    MOV AH,02
+    MOV AH,02h
     INT 21H
     
     MOV AH,4CH
