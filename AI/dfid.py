@@ -1,14 +1,15 @@
 graph = {
   'A': ['B', 'C'],
-  'B': ['D', 'E'],
-  'C': ['F', 'X'],
-  'D': ['F', 'C'],
-  'E': ['G', 'H'],
-  'F': [],
-  'X': [],
+  'B': ['A','D','E'],
+  'C': ['A','F','G'],
+  'D': [],
+  'E': [],
+  'F': ['H','I'],
   'G': [],
   'H': [],
+  'I': []
 }
+
 
 
 def dfid(graph, current_node, goal_node, visited, path, depth):

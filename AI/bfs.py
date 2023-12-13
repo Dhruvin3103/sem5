@@ -1,11 +1,15 @@
 graph = {
-    'S':['A','B'] ,
-    'A':['S','C'],
-    'B':['S','D'],
-    'C':['A','D','S','B'],
-    'D':['A','B','C','G'],
-    'G':[]
+  'A': ['B', 'C'],
+  'B': ['A','D','E'],
+  'C': ['A','F','G'],
+  'D': [],
+  'E': [],
+  'F': ['H','I'],
+  'G': [],
+  'H': [],
+  'I': []
 }
+
 
 def bfs(graph, current_node, goal_node, visited, path, queue):
     visited.append(current_node)

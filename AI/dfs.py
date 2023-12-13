@@ -1,13 +1,15 @@
 graph = {
   'A': ['B', 'C'],
-  'B': ['A', 'D'],
-  'C': ['A', 'D', 'E'],
-  'D': ['F', 'C', 'B'],
-  'E': ['C', 'F', 'G'],
-  'F': ['D', 'H', 'E'],
-  'G': ['E'],
-  'H': ['F']
+  'B': ['A','D','E'],
+  'C': ['A','F','G'],
+  'D': [],
+  'E': [],
+  'F': ['H','I'],
+  'G': [],
+  'H': [],
+  'I': []
 }
+
 
 def dfs(graph, current_node, goal_node, visited, path):
     if current_node not in visited:

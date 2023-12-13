@@ -23,6 +23,8 @@ for i in range(epochs):
     for j in range(len(X)):
         net = np.dot(X[j], W)
 
+
+
         if net <= 0:
             op = 0
         elif net > 0:
