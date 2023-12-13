@@ -1,13 +1,11 @@
 def find_best(blocks,p,memory):
     pi = -1
-    
     for i,b in enumerate(blocks):
         if b >= p and memory[i] == -1: 
             if pi == -1:
                 pi = i
             elif b < blocks[pi]:
                 pi = i
-        
     return pi
     
 
