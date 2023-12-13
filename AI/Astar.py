@@ -55,5 +55,5 @@ try:
         print(f"Open List is : {open_list}\nclosed List is : {close_list}\n")
      
     print(f"So the optimized path is from {open_list[0][2][0]} to {goal_node} is {open_list[0][2]} with distance : {open_list[0][1]}")      
-except:
-    print("something went wrong moslty the node not found : ( ")   
+except Exception as e:
+    print("something went wrong moslty the node not found : ( ",e)   

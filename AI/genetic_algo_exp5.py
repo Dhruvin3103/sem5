@@ -22,6 +22,8 @@ def selection(gene):
             for c in range(i):
                 mate_pool.append(j)
     return x, fx, fx_sum, fx_avg, expected_count, actual_count, mate_pool
+
+
 def generate_mate(size, mate_element_size):
     if size % 2 != 0:
         return -1
@@ -43,6 +45,7 @@ def generate_mate(size, mate_element_size):
         if crossover.count(-1) != 0:
             crossover[i] = crossover[mate[i]] = random.randint(1, mate_element_size - 1)
     return mate, crossover
+
 def crossover(mate_pool):
     mate, crossover_points = generate_mate(len(mate_pool), len(mate_pool[0]))
     new_poplu = [-1] * len(mate_pool)
