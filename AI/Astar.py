@@ -1,40 +1,21 @@
 # Define the graph
 graph = {
-    'S': {'A': 5, 'B': 8, 'C': 12},
-    'A': {'D': 6, 'E': 9},
-    'B': {'F': 10},
-    'C': {'G': 11},
-    'D': {'H': 8, 'I': 15},
-    'E': {'J': 7},
-    'F': {'K': 12},
-    'G': {'L': 9},
-    'H': {'M': 10},
-    'I': {'N': 5},
-    'J': {'N': 8},
-    'K': {'N': 6},
-    'L': {'N': 10},
-    'M': {'N': 7},
-    'N': {'Z': 0},
-    'Z': {}
+    'A' :{'B':9,'C':4,'D':7},
+    'B' :{'E':11},
+    'C' :{'E':17,'F':12},
+    'D' :{'F':14},
+    'E' :{'Z':5},
+    'F' :{'Z':9}
 }
 # Define the heuristic values for A* search
 graph_heu = {
-    'S': 20,
-    'A': 16,
-    'B': 18,
-    'C': 15,
-    'D': 12,
-    'E': 10,
+    'A': 21,
+    'B': 14,
+    'C': 18,
+    'D': 18,
+    'E': 5,
     'F': 8,
-    'G': 6,
-    'H': 6,
-    'I': 5,
-    'J': 4,
-    'K': 3,
-    'L': 2,
-    'M': 1,
-    'N': 0,
-    'Z': 0
+    'Z':0
 }
 curr_node = input("Enter Start Node : ") # this is also start node at the beginning
 goal_node = input("Enter Goal Node : ")
@@ -72,6 +53,7 @@ try:
                 open_list.remove(i)
         # after:[['A', 21, ['S', 'A']], ['B', 26, ['S', 'B']], ['C', 27, ['S', 'C']]]  
         print(f"Open List is : {open_list}\nclosed List is : {close_list}\n")
+     
+    print(f"So the optimized path is from {open_list[0][2][0]} to {goal_node} is {open_list[0][2]} with distance : {open_list[0][1]}")      
 except:
-    print("something went wrong moslty the node not found : ( ")        
-print(f"So the optimized path is from {open_list[0][2][0]} to {goal_node} is {open_list[0][2]} with distance : {open_list[0][1]}")      
+    print("something went wrong moslty the node not found : ( ")   
