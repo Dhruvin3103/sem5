@@ -43,6 +43,7 @@ print(W)
 
 def test(test_data, W):
     net = np.dot(test_data, W)
+    print(net)
     if net <= 0:
         op = 'L'
     elif net > 0:

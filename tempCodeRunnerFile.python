@@ -1,38 +1,55 @@
-graph = {
-  'A': ['B', 'C'],
-  'B': ['A','D','E'],
-  'C': ['A','F','G'],
-  'D': [],
-  'E': [],
-  'F': ['H','I'],
-  'G': [],
-  'H': [],
-  'I': []
-}
+intial_state = [[],[],[],['B','C','D','A']]
+goal_state = [[],[],[],['A','B','C','D']]
 
 
+def heu(curr_state,goal_state):
+    goal_ = goal_state[3]
+    val = 0
+    for i in range(len(curr_state)):
+        sub_curr_state = curr_state[i]
+        for j in range(len(sub_curr_state)):
+            if sub_curr_state[j] != goal_[j]:
+                val -= j
+            else:
+                val += j
+    print('heu value for ',curr_state,'values',val)
+    return val
 
-def dfid(graph,current_node,goal_node,visited,path,depth):
-    for i in range(0,depth):
-        print(f"Depth : {i}")
-        dfs(graph,current_node,goal_node,[],[],0,i)
+def gn(curr_state,prev_heu,goal_state):
+    for i in range(len(curr_state)):
+        temp = list(map(list,curr_state))
+        if len(temp[i])>0:
+            element = temp[i].pop()
+            for j in range(len(temp)):
+                temp1 = list(map(list,temp))
+                if j != i:
+                    temp1[j] = temp1[j] + [element]
+                    curr_hue = heu(temp1,goal_state)
+                    if curr_hue > prev_heu:
+                        return temp1
+    return 0
 
-def dfs(graph,current_node,goal_node,visited,path,current_depth,depth):
-    if current_depth<=depth:
-        if current_node not in visited:
-            visited.append(current_node)
-            path.append(current_node)
-            not_visited=[i for i in graph.keys() if i not in visited]
-            if current_node==goal_node:
-                print(f"{visited}\t\t{not_visited}\t\tTrue")
-                print('path found',path)
-                exit()
-            print(f"{visited}\t\t{not_visited}\t\tFalse")
-            for i in graph[current_node]:
-                dfs(graph,i,goal_node,visited,path,current_depth+1,depth)
+def sln(intial_state,goal_state):
+    if intial_state == goal_state:
+        return 'solution found'
+    current_state = list(map(list,intial_state))
+    while True:
+        if current_state == goal_state:
+            return 'solution found'
+        prev_hue = heu(current_state,goal_state)
+        child = gn(current_state,prev_hue,goal_state)
+        if child == 0:
+            print('stop !!')
+            return
+        print(f"Child chosen for exploration: {child}\n")
+        current_state = list(map(list, child))
+        
+sln(intial_state,goal_state)
+        
+                    
+            
+            
     
-dfid(graph,'A','F',[],[],3)    
-# if status:
-#     print(f"Found\nPath : {path1}")
-# else:
-#     print(f"Not found")
+    
+
+# heu([[],[],['B','C'],['D','A']],goal_state)
