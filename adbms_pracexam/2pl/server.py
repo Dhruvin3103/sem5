@@ -13,7 +13,6 @@ def server():
     while 1:
         replies = []
         print(f"Co ordinator : {msg.lower()}")
-
         for i in range(3):
             conn, add = sock.accept()
             conn.send(msg.encode())
@@ -32,9 +31,9 @@ def server():
             over = 1
         else:
             msg = "commit"
+            
+        
         log += " " + msg
-
-
 server()
 
 
