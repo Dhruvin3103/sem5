@@ -12,6 +12,8 @@ drop index Name_index on country;
 select * from country where Name = "India";
 select * from city join country on city.CountryCode in  (select code from country where Name ="India");
 
+SELECT * FROM country WHERE Continent = 'Asia' ORDER BY Population DESC;
+
 
 
 
