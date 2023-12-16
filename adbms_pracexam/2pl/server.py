@@ -1,5 +1,40 @@
 import socket
 
+def server():
+    port = 8000
+    host = '127.0.0.1'
+    sock = socket.socket()
+    sock.bind((host,port))
+    sock.listen(2)
+    over = 0
+    while(1):
+        repiles = []
+        print('sub')
+        for i in range(3):
+            conn,add = sock.accept()
+            conn.send(msg.encode())
+            data = conn.recv(1024).decode().lower()
+            repiles.append(data)
+            print('co ordinator')
+            
+            
+            if over ==1 : break
+            elif 'abort' in repiles:
+                msg = 'abort'
+                over = 1
+                print('transc aborted')
+            elif 'success' in repiles:
+                msg = 'success'
+                over = 1
+                print('trans complete')
+            else:
+                msg = 'commit'
+                
+            log += " "+msg
+            
+server()
+            
+
 
 def server():
     port = 8000

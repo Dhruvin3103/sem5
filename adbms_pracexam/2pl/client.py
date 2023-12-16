@@ -4,7 +4,7 @@ import socket
 def client():
     port = 8000
     host = "127.0.0.1"
-    log = ""
+    log = "" 
     over = 0
 
     while 1:

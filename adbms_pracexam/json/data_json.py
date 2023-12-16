@@ -1,12 +1,4 @@
-import json
-
-# Read data from the JSON file
-with open('data.json', 'r') as file:
+import json 
+with open('data.json','r') as file:
     data = json.load(file)
-
-# Iterate through the records and print them
-for record in data:
-    print("Name:", record["name"])
-    print("Location:", record["location"])
-    print("Country:", record["country"])
-    print()
+print(data) 

@@ -1,23 +1,43 @@
 [
-    {
-      "name": "John Doe",
-      "location": "New York",
-      "country": "USA"
-    },
-    {
-      "name": "Alice Smith",
-      "location": "London",
-      "country": "UK"
-    },
-    {
-      "name": "Bob Johnson",
-      "location": "Paris",
-      "country": "France"
-    },
-    {
-      "name": "Eva Rodriguez",
-      "location": "Tokyo",
-      "country": "Japan"
-    }
-  ]
+  {
+    "name":"name1",
+    "location":"location1",
+    "country":"country1"
+  },
+  {
+    "name":"dhruvin",
+    "location":"location1",
+    "country":"country1"
+  },
+  {
+    "name":"naruto",
+    "location":"kohana",
+    "country":"NA"
+  },
+  {
+    "name":"ichigo",
+    "location":"karakuta",
+    "country":"japan"
+  },
+  {
+    "name":"name1",
+    "location":"location1",
+    "country":"country1"
+  },
+  {
+    "name":"name1",
+    "location":"location1",
+    "country":"country1"
+  },
+  {
+    "name":"name1",
+    "location":"location1",
+    "country":"country1"
+  },
+  {
+    "name":"name1",
+    "location":"location1",
+    "country":"country1"
+  }
   
+]
