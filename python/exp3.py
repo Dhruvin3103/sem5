@@ -21,19 +21,35 @@
 # print(f"\nperfect number check of 16 implemenation : ",perfect(16))
 
 # tower of hanoi ka code : 
-def tower_of_hanoi(n, source, target, auxiliary):
-    if n > 0:
-        # Move n-1 disks from source to auxiliary peg
-        tower_of_hanoi(n - 1, source, auxiliary, target)
+# def tower_of_hanoi(n, source, target, auxiliary):
+#     if n > 0:
+#         # Move n-1 disks from source to auxiliary peg
+#         tower_of_hanoi(n - 1, source, auxiliary, target)
         
-        # Move the nth disk from source to target peg
-        print(f"Move disk {n} from {source} to {target}")
+#         # Move the nth disk from source to target peg
+#         print(f"Move disk {n} from {source} to {target}")
         
-        # Move the n-1 disks from auxiliary peg to target peg
-        tower_of_hanoi(n - 1, auxiliary, target, source)
+#         # Move the n-1 disks from auxiliary peg to target peg
+#         tower_of_hanoi(n - 1, auxiliary, target, source)0
 
 # Example usage with 3 disks
-tower_of_hanoi(3, 'A', 'C', 'B')
+# def tower_of_hanoi(n,sou,target,aux):
+#     if n>0:
+#         tower_of_hanoi(n-1,sou,aux,target)
+#         print(f"move disk {n} from {sou} to {target}")
+#         tower_of_hanoi(n-1,aux,target,sou)
+# tower_of_hanoi(3, 'A', 'C', 'B')
+
+
+def histogram(l):
+    s_l = set(l)
+    count_s = [[i,l.count(i)] for i in s_l]
+    
+    count_s = sorted(count_s,key=lambda x:x[1])
+    return count_s
+
+print(f"Histogram implemenation : ",histogram([13,12,14,15,11,13,7,12,7,13,14,12]))
+
 
 
 # # code to print greatest of two number using lamda
