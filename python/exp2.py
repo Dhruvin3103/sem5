@@ -37,6 +37,14 @@
 #     s.add(int(input(f"Enter the {i} element : ")))
 # print("set :", s)
 
+s1 = {1,2,3,4}
+s2 = {2,3}
+print(s1.intersection(s2))
+print(s1.union(s2))
+print(s1.difference(s2))
+print(s1.remove(2))
+print(s1)
+
 # n = int(input("Enter size "))
 # t = tuple()
 # l = list(t)
