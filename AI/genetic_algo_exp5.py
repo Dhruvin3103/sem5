@@ -47,7 +47,8 @@ def generate_mate(size, mate_element_size):
     return mate, crossover
 
 def crossover(mate_pool):
-    mate, crossover_points = generate_mate(len(mate_pool), len(mate_pool[0]))
+    # mate, crossover_points = generate_mate(len(mate_pool), len(mate_pool[0]))
+    mate, crossover_points = [1,0,3,2],[4,4,2,2]
     new_poplu = [-1] * len(mate_pool)
     for i in mate:
         new_poplu[i] = mate_pool[i][:crossover_points[i]] + mate_pool[mate[i]][crossover_points[i]:]
